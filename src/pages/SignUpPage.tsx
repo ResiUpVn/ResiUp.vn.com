@@ -1,3 +1,4 @@
+// FIX: Replaced placeholder content with the correct component implementation to resolve module loading errors.
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';

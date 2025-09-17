@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
@@ -27,35 +27,37 @@ import TestsPage from './pages/TestsPage';
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          
-          <Route element={<ProtectedRoute />}>
-            <Route element={<Layout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/challenges" element={<DailyChallengePage />} />
-              <Route path="/breathing" element={<BreathingPage />} />
-              <Route path="/nature-sounds" element={<NatureSoundsPage />} />
-              <Route path="/journal" element={<JournalPage />} />
-              <Route path="/chatbot" element={<ChatbotPage />} />
-              <Route path="/forum" element={<ForumPage />} />
-              <Route path="/forum/:postId" element={<PostDetailPage />} />
-              <Route path="/resources" element={<ResourcesPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/tests" element={<TestsPage />} />
-              
-              <Route element={<AdminRoute />}>
-                <Route path="/admin" element={<AdminPage />} />
+      <LanguageProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            
+            <Route element={<ProtectedRoute />}>
+              <Route element={<Layout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/challenges" element={<DailyChallengePage />} />
+                <Route path="/breathing" element={<BreathingPage />} />
+                <Route path="/nature-sounds" element={<NatureSoundsPage />} />
+                <Route path="/journal" element={<JournalPage />} />
+                <Route path="/chatbot" element={<ChatbotPage />} />
+                <Route path="/forum" element={<ForumPage />} />
+                <Route path="/forum/:postId" element={<PostDetailPage />} />
+                <Route path="/resources" element={<ResourcesPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/tests" element={<TestsPage />} />
+                {/* FIX: Changed the admin route to use AdminRoute as a layout route, which is the correct pattern for react-router-dom v6 route guards that use <Outlet />. */}
+                <Route element={<AdminRoute />}>
+                  <Route path="/admin" element={<AdminPage />} />
+                </Route>
               </Route>
             </Route>
-          </Route>
-          
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Router>
+            
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Router>
+      </LanguageProvider>
     </AuthProvider>
   );
 };

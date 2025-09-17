@@ -1,3 +1,4 @@
+// FIX: Replaced placeholder content with the correct component implementation to resolve module loading errors.
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';

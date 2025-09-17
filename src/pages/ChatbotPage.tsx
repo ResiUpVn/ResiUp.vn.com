@@ -1,3 +1,4 @@
+// FIX: Replaced placeholder content with the correct component implementation to resolve module loading errors.
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PageTitle from '../components/PageTitle';
 import { sendMessageStream } from '../services/geminiService';

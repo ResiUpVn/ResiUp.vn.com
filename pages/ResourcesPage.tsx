@@ -2,18 +2,20 @@ import React from 'react';
 import PageTitle from '../components/PageTitle';
 import useLocalStorage from '../hooks/useLocalStorage';
 import type { ResourceVideo } from '../types';
+import { useTranslation } from '../context/LanguageContext';
 
 const ResourcesPage: React.FC = () => {
+    const { t } = useTranslation();
     const [videos] = useLocalStorage<ResourceVideo[]>('resourceVideos', []);
 
     return (
         <div>
-            <PageTitle title="Wellness Resources" subtitle="A curated library of helpful articles, videos, and tools." />
+            <PageTitle title={t('resources.title')} subtitle={t('resources.subtitle')} />
             
             {videos.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {videos.map(video => (
-                        <div key={video.id} className="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col">
+                        <div key={video.id} className="bg-white/70 backdrop-blur-sm rounded-xl shadow-md overflow-hidden flex flex-col border border-slate-200/80">
                              <div className="aspect-w-16 aspect-h-9">
                                 <iframe 
                                     src={`https://www.youtube.com/embed/${video.videoId}`}
@@ -25,16 +27,16 @@ const ResourcesPage: React.FC = () => {
                                 ></iframe>
                             </div>
                             <div className="p-4 flex-1 flex flex-col">
-                                <h3 className="text-lg font-bold text-gray-800">{video.title}</h3>
-                                <p className="mt-2 text-sm text-gray-600 flex-1">{video.description}</p>
+                                <h3 className="text-lg font-bold text-slate-800">{video.title}</h3>
+                                <p className="mt-2 text-sm text-slate-600 flex-1">{video.description}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <h3 className="text-2xl font-semibold text-gray-700">No Resources Available</h3>
-                    <p className="mt-2 text-gray-500">The admin has not added any resources yet. Please check back later.</p>
+                <div className="bg-white/70 backdrop-blur-sm p-8 rounded-xl shadow-md text-center border border-slate-200/80">
+                    <h3 className="text-2xl font-semibold text-slate-700">{t('resources.noResourcesTitle')}</h3>
+                    <p className="mt-2 text-slate-500">{t('resources.noResourcesDesc')}</p>
                 </div>
             )}
              <style>

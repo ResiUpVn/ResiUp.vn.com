@@ -1,0 +1,325 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "dashboard": "Bảng điều khiển",
+    "challenges": "Thử thách",
+    "breathing": "Hít thở",
+    "journal": "Nhật ký",
+    "chatbot": "AI Chatbot",
+    "tests": "Bài test",
+    "natureSounds": "Âm thanh thiên nhiên",
+    "resources": "Tài nguyên",
+    "forum": "Diễn đàn",
+    "admin": "Quản trị"
+  },
+  "sidebar": {
+    "viewProfile": "Xem hồ sơ",
+    "logout": "Đăng xuất"
+  },
+  "home": {
+    "welcome": "Chào mừng bạn!",
+    "welcomeBack": "Chào mừng trở lại",
+    "subtitle": "Sẵn sàng tiếp tục hành trình khám phá bản thân?",
+    "quoteTitle": "Trích dẫn trong ngày",
+    "quoteText": "\"Nghịch lý đáng tò mò là khi tôi chấp nhận bản thân mình như chính con người tôi, thì tôi có thể thay đổi.\"",
+    "quickAccess": "Truy cập nhanh"
+  },
+  "features": {
+    "challenge": {
+      "title": "Thử thách hàng ngày",
+      "desc": "Xây dựng thói quen tích cực, mỗi ngày một bước."
+    },
+    "breathing": {
+      "title": "Hít thở",
+      "desc": "Làm dịu tâm trí của bạn với các bài tập có hướng dẫn."
+    },
+    "sounds": {
+      "title": "Âm thanh thiên nhiên",
+      "desc": "Thư giãn với những video thiên nhiên nhẹ nhàng."
+    },
+    "journal": {
+      "title": "Nhật ký",
+      "desc": "Suy ngẫm về những suy nghĩ và cảm xúc của bạn."
+    },
+    "chatbot": {
+      "title": "AI Chatbot",
+      "desc": "Trò chuyện với Resi, người bạn AI luôn hỗ trợ bạn."
+    },
+    "tests": {
+      "title": "Tự đánh giá",
+      "desc": "Hiểu rõ hơn về sức khỏe tinh thần của bạn."
+    }
+  },
+  "challenges": {
+    "title": "Thử thách hàng ngày",
+    "subtitle": "Một bước nhỏ mỗi ngày hướng tới một bạn tốt hơn.",
+    "todaysFocus": "Trọng tâm hôm nay",
+    "loading": "Đang tải thử thách...",
+    "markComplete": "Đánh dấu đã hoàn thành",
+    "completed": "Đã hoàn thành!",
+    "list": [
+      "Viết ra ba điều bạn biết ơn hôm nay.",
+      "Dành 5 phút để thực hiện bài tập thở chánh niệm.",
+      "Đi bộ 15 phút bên ngoài và chú ý đến môi trường xung quanh bạn.",
+      "Liên lạc với một người bạn hoặc thành viên gia đình mà bạn đã lâu không nói chuyện.",
+      "Làm một hành động tử tế nhỏ cho người khác.",
+      "Dành 10 phút để dọn dẹp một khu vực nhỏ trong không gian của bạn.",
+      "Nghe một bài hát nâng cao tinh thần yêu thích mà không bị phân tâm.",
+      "Viết ra một mục tiêu ngắn hạn bạn muốn hoàn thành trong tuần này.",
+      "Thử một bài thiền có hướng dẫn trong 5 phút.",
+      "Kéo giãn cơ thể trong 10 phút.",
+      "Uống một ly nước đầy ngay sau khi thức dậy.",
+      "Đọc một chương sách.",
+      "Tránh kiểm tra mạng xã hội trong giờ đầu tiên của ngày.",
+      "Khen ngợi một người lạ hoặc một đồng nghiệp.",
+      "Viết ra một điều bạn thích về bản thân."
+    ]
+  },
+  "breathing": {
+    "title": "Hít thở chánh niệm",
+    "subtitle": "Làm theo hướng dẫn để làm dịu tâm trí và cơ thể của bạn.",
+    "getReady": "Chuẩn bị...",
+    "breatheIn": "Hít vào",
+    "hold": "Giữ",
+    "breatheOut": "Thở ra",
+    "start": "Bắt đầu",
+    "stop": "Dừng lại"
+  },
+  "sounds": {
+    "title": "Âm thanh thiên nhiên",
+    "subtitle": "Chọn một video để thư giãn, tập trung hoặc thiền định.",
+    "noSoundsTitle": "Không có âm thanh nào",
+    "noSoundsDesc": "Quản trị viên chưa thêm bất kỳ âm thanh thiên nhiên nào. Vui lòng kiểm tra lại sau.",
+    "chooseSound": "Chọn âm thanh khác",
+    "playing": "Đang phát"
+  },
+  "journal": {
+    "title": "Nhật ký của tôi",
+    "subtitle": "Một không gian riêng tư cho những suy nghĩ và cảm xúc của bạn.",
+    "todaysEntry": "Ghi chép hôm nay",
+    "placeholder": "Bạn đang nghĩ gì...?",
+    "save": "Lưu lại",
+    "pastEntries": "Các ghi chép cũ",
+    "noEntries": "Bạn chưa có ghi chép nhật ký nào."
+  },
+  "chatbot": {
+    "title": "Trò chuyện với Resi",
+    "subtitle": "Trợ lý AI cá nhân của bạn để được hướng dẫn và hỗ trợ.",
+    "welcome": "Xin chào! Tôi là Resi, người bạn đồng hành AI của bạn. Hôm nay bạn cảm thấy thế nào?",
+    "placeholder": "Nhập tin nhắn của bạn ở đây...",
+    "error": "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại."
+  },
+  "forum": {
+    "title": "Diễn đàn cộng đồng",
+    "subtitle": "Kết nối với những người khác trên cùng một hành trình.",
+    "createPost": "Tạo bài viết mới",
+    "discussions": "Thảo luận",
+    "noPosts": "Chưa có bài viết nào. Hãy là người đầu tiên bắt đầu một cuộc thảo luận!",
+    "postBy": "Bởi {{author}} vào {{date}}",
+    "modal": {
+      "title": "Tạo bài viết mới",
+      "postTitle": "Tiêu đề",
+      "content": "Nội dung",
+      "cancel": "Hủy",
+      "post": "Đăng"
+    }
+  },
+  "post": {
+    "notFound": "Không tìm thấy bài viết hoặc đang tải...",
+    "backToForum": "Quay lại diễn đàn",
+    "deletePostConfirm": "Bạn có chắc chắn muốn xóa bài viết này và tất cả các bình luận của nó không?",
+    "deleteCommentConfirm": "Bạn có chắc chắn muốn xóa bình luận này không?",
+    "commentsTitle": "Bình luận ({{count}})",
+    "leaveComment": "Để lại bình luận",
+    "commentPlaceholder": "Chia sẻ suy nghĩ của bạn...",
+    "postComment": "Đăng bình luận",
+    "noComments": "Chưa có bình luận nào."
+  },
+  "resources": {
+    "title": "Tài nguyên hữu ích",
+    "subtitle": "Thư viện các bài báo, video và công cụ hữu ích được tuyển chọn.",
+    "noResourcesTitle": "Không có tài nguyên nào",
+    "noResourcesDesc": "Quản trị viên chưa thêm bất kỳ tài nguyên nào. Vui lòng kiểm tra lại sau."
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "subtitle": "Theo dõi tiến trình và ghi nhận sự phát triển của bạn.",
+    "completedChallenges": "Thử thách đã hoàn thành",
+    "journalEntries": "Ghi chép nhật ký",
+    "currentStreak": "Chuỗi hiện tại",
+    "days": "ngày",
+    "latestTestResult": "Kết quả test gần nhất",
+    "journalChartTitle": "Ghi chép nhật ký (7 ngày qua)",
+    "entries": "Ghi chép",
+    "challengeChartTitle": "Hoàn thành thử thách",
+    "completed": "Hoàn thành",
+    "missed": "Bỏ lỡ"
+  },
+  "login": {
+    "welcome": "Chào mừng trở lại",
+    "subtitle": "Đăng nhập để tiếp tục hành trình của bạn",
+    "emailLabel": "Địa chỉ email",
+    "passwordLabel": "Mật khẩu",
+    "signInButton": "Đăng nhập",
+    "noAccount": "Chưa có tài khoản?",
+    "signUpLink": "Đăng ký",
+    "error": "Email hoặc mật khẩu không hợp lệ"
+  },
+  "signup": {
+    "title": "Tạo tài khoản",
+    "subtitle": "Bắt đầu hành trình khám phá bản thân ngay hôm nay",
+    "emailLabel": "Địa chỉ email",
+    "passwordLabel": "Mật khẩu",
+    "signUpButton": "Đăng ký",
+    "hasAccount": "Đã có tài khoản?",
+    "signInLink": "Đăng nhập",
+    "errorExists": "Một tài khoản với email này đã tồn tại.",
+    "errorReserved": "Địa chỉ email này đã được đăng ký.",
+    "errorGeneric": "Không thể tạo tài khoản."
+  },
+  "profile": {
+    "title": "Hồ sơ của tôi",
+    "subtitle": "Quản lý cài đặt tài khoản của bạn.",
+    "email": "Email",
+    "logoutButton": "Đăng xuất",
+    "disclaimer1": "Đây là một hệ thống xác thực mô phỏng.",
+    "disclaimer2": "Dữ liệu người dùng được lưu trữ trong bộ nhớ cục bộ của trình duyệt của bạn."
+  },
+  "admin": {
+    "title": "Bảng điều khiển quản trị",
+    "subtitle": "Quản lý cài đặt và người dùng ứng dụng.",
+    "tabs": {
+        "users": "Người dùng",
+        "forum": "Diễn đàn",
+        "chatLogs": "Nhật ký Chatbot",
+        "chatKnowledge": "Kiến thức Chatbot",
+        "resources": "Tài nguyên",
+        "sounds": "Âm thanh thiên nhiên"
+    },
+    "users": {
+        "title": "Người dùng ({{count}})",
+        "email": "Email",
+        "role": "Vai trò",
+        "delete": "Xóa",
+        "admin": "Quản trị viên",
+        "user": "Người dùng",
+        "deleteSelfError": "Bạn không thể xóa tài khoản quản trị của chính mình.",
+        "deleteConfirm": "Bạn có chắc chắn muốn xóa người dùng {{email}} không? Hành động này không thể hoàn tác."
+    },
+    "forum": {
+        "title": "Bài viết diễn đàn ({{count}})",
+        "postTitle": "Tiêu đề",
+        "author": "Tác giả",
+        "createdAt": "Ngày tạo",
+        "delete": "Xóa",
+        "deleteConfirm": "Bạn có chắc chắn muốn xóa bài viết này và tất cả các bình luận của nó không?"
+    },
+    "chatLogs": {
+        "title": "Phiên trò chuyện ({{count}})",
+        "messages": "{{count}} tin nhắn",
+        "transcriptTitle": "Bản ghi trò chuyện",
+        "transcriptInfo": "Người dùng: {{email}} | Phiên: {{date}}",
+        "close": "Đóng"
+    },
+    "knowledge": {
+        "title": "Quản lý kiến thức Chatbot",
+        "addTitle": "Thêm tài liệu mới",
+        "docTitle": "Tiêu đề tài liệu",
+        "content": "Nội dung tài liệu...",
+        "addButton": "Thêm tài liệu",
+        "addError": "Tiêu đề và nội dung là bắt buộc.",
+        "deleteConfirm": "Bạn có chắc chắn muốn xóa tài liệu kiến thức này không?"
+    },
+    "resources": {
+        "title": "Quản lý Video tài nguyên",
+        "addTitle": "Thêm Video mới",
+        "videoTitle": "Tiêu đề Video",
+        "description": "Mô tả Video",
+        "url": "URL YouTube hoặc ID Video",
+        "addButton": "Thêm tài nguyên",
+        "addError": "Tiêu đề và URL/ID YouTube hợp lệ là bắt buộc."
+    },
+    "sounds": {
+        "title": "Quản lý Âm thanh thiên nhiên",
+        "addTitle": "Thêm Âm thanh mới",
+        "name": "Tên / Tiêu đề âm thanh",
+        "url": "URL YouTube hoặc ID Video",
+        "addButton": "Thêm âm thanh",
+        "addError": "Tên và URL/ID YouTube hợp lệ là bắt buộc."
+    }
+  },
+  "tests": {
+      "title": "Bài test tự đánh giá",
+      "subtitle": "Hiểu rõ hơn về sức khỏe tinh thần của bạn.",
+      "viewResults": "Xem kết quả của tôi",
+      "retake": "Làm lại bài test",
+      "errors": {
+          "incomplete": "Vui lòng trả lời tất cả các câu hỏi trước khi gửi."
+      },
+      "results": {
+          "title": "Kết quả DASS-21 của bạn",
+          "date": "Bài test hoàn thành lúc: {{date}}",
+          "depression": "Trầm cảm",
+          "anxiety": "Lo âu",
+          "stress": "Căng thẳng",
+          "disclaimer": "Lưu ý: Đây không phải là một công cụ chẩn đoán. Những kết quả này chỉ mang tính chất tham khảo. Vui lòng tham khảo ý kiến chuyên gia sức khỏe tâm thần để có chẩn đoán chính xác."
+      },
+      "dass21": {
+          "title": "Thang đo Trầm cảm - Lo âu - Căng thẳng (DASS-21)",
+          "instruction": "Vui lòng đọc kỹ mỗi câu và chọn phương án mô tả đúng nhất tình trạng của bạn trong tuần vừa qua. Không có câu trả lời đúng hay sai.",
+          "options": [
+              "Hoàn toàn không đúng với tôi",
+              "Đúng với tôi một phần, hoặc thỉnh thoảng",
+              "Đúng với tôi phần lớn, hoặc phần nhiều thời gian",
+              "Hoàn toàn đúng với tôi, hoặc hầu hết thời gian"
+          ],
+          "questions": [
+              { "text": "Tôi thấy khó thư giãn", "scale": "S" },
+              { "text": "Tôi cảm thấy khô miệng", "scale": "A" },
+              { "text": "Tôi dường như không thể có bất kỳ cảm xúc tích cực nào", "scale": "D" },
+              { "text": "Tôi bị khó thở (ví dụ: thở nhanh, khó thở mà không gắng sức)", "scale": "A" },
+              { "text": "Tôi thấy khó bắt tay vào làm việc gì đó", "scale": "D" },
+              { "text": "Tôi có xu hướng phản ứng thái quá với các tình huống", "scale": "S" },
+              { "text": "Tôi bị run (ví dụ: ở tay)", "scale": "A" },
+              { "text": "Tôi cảm thấy mình đang sử dụng rất nhiều năng lượng thần kinh", "scale": "S" },
+              { "text": "Tôi lo lắng về những tình huống có thể khiến tôi hoảng sợ và tự biến mình thành trò hề", "scale": "A" },
+              { "text": "Tôi cảm thấy mình chẳng có gì để mong đợi", "scale": "D" },
+              { "text": "Tôi thấy mình dễ bị kích động", "scale": "S" },
+              { "text": "Tôi thấy khó để thư giãn", "scale": "S" },
+              { "text": "Tôi cảm thấy chán nản và buồn bã", "scale": "D" },
+              { "text": "Tôi không khoan dung với bất cứ điều gì cản trở tôi làm việc", "scale": "S" },
+              { "text": "Tôi cảm thấy mình sắp hoảng loạn", "scale": "A" },
+              { "text": "Tôi không thể nhiệt tình với bất cứ điều gì", "scale": "D" },
+              { "text": "Tôi cảm thấy mình không đáng giá", "scale": "D" },
+              { "text": "Tôi cảm thấy mình khá nhạy cảm (dễ tự ái)", "scale": "S" },
+              { "text": "Tôi nhận thấy tim mình đập bất thường dù không gắng sức (ví dụ: tim đập nhanh, lỡ nhịp)", "scale": "A" },
+              { "text": "Tôi cảm thấy sợ hãi vô cớ", "scale": "A" },
+              { "text": "Tôi cảm thấy cuộc sống vô nghĩa", "scale": "D" }
+          ],
+          "severity": {
+              "unknown": "Không xác định",
+              "depression": [
+                  { "level": "Bình thường", "range": [0, 9], "color": "bg-green-500" },
+                  { "level": "Nhẹ", "range": [10, 13], "color": "bg-yellow-400" },
+                  { "level": "Vừa", "range": [14, 20], "color": "bg-orange-500" },
+                  { "level": "Nặng", "range": [21, 27], "color": "bg-red-500" },
+                  { "level": "Rất nặng", "range": [28, 100], "color": "bg-red-700" }
+              ],
+              "anxiety": [
+                  { "level": "Bình thường", "range": [0, 7], "color": "bg-green-500" },
+                  { "level": "Nhẹ", "range": [8, 9], "color": "bg-yellow-400" },
+                  { "level": "Vừa", "range": [10, 14], "color": "bg-orange-500" },
+                  { "level": "Nặng", "range": [15, 19], "color": "bg-red-500" },
+                  { "level": "Rất nặng", "range": [20, 100], "color": "bg-red-700" }
+              ],
+              "stress": [
+                  { "level": "Bình thường", "range": [0, 14], "color": "bg-green-500" },
+                  { "level": "Nhẹ", "range": [15, 18], "color": "bg-yellow-400" },
+                  { "level": "Vừa", "range": [19, 25], "color": "bg-orange-500" },
+                  { "level": "Nặng", "range": [26, 33], "color": "bg-red-500" },
+                  { "level": "Rất nặng", "range": [34, 100], "color": "bg-red-700" }
+              ]
+          }
+      }
+  }
+}

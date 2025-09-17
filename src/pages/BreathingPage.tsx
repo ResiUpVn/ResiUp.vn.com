@@ -46,7 +46,7 @@ const BreathingPage: React.FC = () => {
                 {isAnimating && (
                     <div
                         key={key}
-                        className={`absolute w-full h-full bg-teal-300 rounded-full ${instruction === 'Breathe In' ? 'animate-[scaleUp_4s_ease-in-out_infinite]' : ''} ${instruction === 'Breathe Out' ? 'animate-[scaleDown_4s_ease-in-out_infinite]' : ''}`}
+                        className={`absolute w-full h-full bg-blue-300 rounded-full ${instruction === 'Breathe In' ? 'animate-[scaleUp_4s_ease-in-out_infinite]' : ''} ${instruction === 'Breathe Out' ? 'animate-[scaleDown_4s_ease-in-out_infinite]' : ''}`}
                         style={{ animationIterationCount: 'infinite' }}
                     ></div>
                 )}
@@ -63,13 +63,13 @@ const BreathingPage: React.FC = () => {
                     `}
                 </style>
                 <div className="z-10 text-center">
-                    <p className="text-3xl font-semibold text-teal-700">{instruction}</p>
+                    <p className="text-3xl font-semibold text-blue-700">{instruction}</p>
                 </div>
             </div>
 
             <button
                 onClick={handleButtonClick}
-                className="mt-10 px-8 py-3 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 transition-colors"
+                className="mt-10 px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
             >
                 {isAnimating ? 'Stop Session' : 'Start Session'}
             </button>

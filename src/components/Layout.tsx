@@ -8,7 +8,7 @@ import Sidebar from './Sidebar';
 // the error about the missing 'children' prop in App.tsx.
 const Layout: React.FC = () => {
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex h-screen bg-transparent">
       <Sidebar />
       <main className="flex-1 overflow-y-auto p-6 lg:p-10">
         <Outlet />

@@ -64,22 +64,12 @@ const ChatbotPage: React.FC = () => {
                     return newMessages;
                 });
             }
-        } catch (error: any) {
+        } catch (error) {
             console.error('Error sending message:', error);
-            let errorMessage = t('chatbot.error');
-            if (error?.message === 'API_KEY_MISSING') {
-                errorMessage = t('chatbot.apiKeyError');
-            }
-            setMessages(prev => {
-                const newMessages = [...prev];
-                // If the last message is an empty model message, update it. Otherwise, add a new one.
-                if (newMessages.length > 0 && newMessages[newMessages.length - 1].role === 'model' && newMessages[newMessages.length - 1].text === '') {
-                    newMessages[newMessages.length - 1].text = errorMessage;
-                } else {
-                    newMessages.push({ role: 'model', text: errorMessage });
-                }
-                return newMessages;
-            });
+            setMessages(prev => [
+                ...prev,
+                { role: 'model', text: t('chatbot.error') },
+            ]);
         } finally {
             setIsLoading(false);
         }
@@ -118,6 +108,7 @@ const ChatbotPage: React.FC = () => {
                             )}
                         </div>
                     ))}
+                    {/* FIX: Add optional chaining to prevent crash when messages array is empty during loading. */}
                     {isLoading && messages[messages.length - 1]?.role !== 'model' && (
                          <div className="flex items-start gap-3">
                             <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">

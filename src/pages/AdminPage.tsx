@@ -44,7 +44,6 @@ const AdminPage: React.FC = () => {
     const [newSoundUrl, setNewSoundUrl] = useState('');
     const [newKnowledgeTitle, setNewKnowledgeTitle] = useState('');
     const [newKnowledgeContent, setNewKnowledgeContent] = useState('');
-    const [apiKey, setApiKey] = useState('');
 
     // Modal state
     const [selectedSession, setSelectedSession] = useState<ChatSession | null>(null);
@@ -53,10 +52,6 @@ const AdminPage: React.FC = () => {
         const storedUsers = JSON.parse(localStorage.getItem('users') || '{}');
         const userArray = Object.values(storedUsers) as User[];
         setUsers(userArray);
-
-        // Load API key from local storage for the admin to view/edit
-        const storedApiKey = localStorage.getItem('geminiApiKey') || '';
-        setApiKey(storedApiKey);
     }, []);
 
     const handleDeleteUser = (emailToDelete: string) => {
@@ -141,11 +136,6 @@ const AdminPage: React.FC = () => {
         }
     };
 
-    const handleSaveApiKey = () => {
-        localStorage.setItem('geminiApiKey', apiKey);
-        alert(t('admin.apiKey.successMessage'));
-    };
-
     const tabs = [
         { name: 'users', label: t('admin.tabs.users') },
         { name: 'posts', label: t('admin.tabs.forum') },
@@ -153,7 +143,6 @@ const AdminPage: React.FC = () => {
         { name: 'knowledge', label: t('admin.tabs.chatKnowledge') },
         { name: 'resources', label: t('admin.tabs.resources') },
         { name: 'sounds', label: t('admin.tabs.sounds') },
-        { name: 'apiKey', label: t('admin.tabs.apiKey') },
     ];
     
     const TabButton = ({ tabName, label }: { tabName: string, label: string }) => (
@@ -178,6 +167,7 @@ const AdminPage: React.FC = () => {
             </div>
 
             <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md border border-slate-200/80">
+                {/* Content is rendered here based on activeTab */}
                 {activeTab === 'users' && <UserManagementTab users={users} adminUser={adminUser} onDelete={handleDeleteUser} t={t} />}
                 {activeTab === 'posts' && <ForumManagementTab posts={posts} onDelete={handleDeletePost} t={t} />}
                 {activeTab === 'chats' && <ChatLogsTab sessions={chatSessions} onSelectSession={setSelectedSession} t={t} />}
@@ -216,14 +206,6 @@ const AdminPage: React.FC = () => {
                         setTitle={setNewKnowledgeTitle}
                         content={newKnowledgeContent}
                         setContent={setNewKnowledgeContent}
-                        t={t}
-                    />
-                )}
-                {activeTab === 'apiKey' && (
-                    <ApiKeyManagementTab
-                        apiKey={apiKey}
-                        setApiKey={setApiKey}
-                        onSave={handleSaveApiKey}
                         t={t}
                     />
                 )}
@@ -405,32 +387,5 @@ const KnowledgeManagementTab = (props: any) => (
         </div>
     </div>
 );
-
-const ApiKeyManagementTab = (props: any) => (
-    <div>
-        <h3 className="text-xl font-semibold text-slate-700 mb-2">{props.t('admin.apiKey.title')}</h3>
-        <p className="text-sm text-slate-500 mb-4">{props.t('admin.apiKey.subtitle')}</p>
-        <div className="space-y-3">
-            <div>
-                <label htmlFor="api-key" className="block text-sm font-medium text-slate-700">{props.t('admin.apiKey.label')}</label>
-                <input
-                    id="api-key"
-                    type="password"
-                    placeholder={props.t('admin.apiKey.placeholder')}
-                    value={props.apiKey}
-                    onChange={(e: any) => props.setApiKey(e.target.value)}
-                    className="mt-1 w-full p-2 border border-slate-300 rounded-md"
-                />
-            </div>
-            <p className="text-xs text-amber-700 bg-amber-50 p-3 rounded-md">{props.t('admin.apiKey.warning')}</p>
-            <div>
-                <button onClick={props.onSave} className="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
-                    {props.t('admin.apiKey.saveButton')}
-                </button>
-            </div>
-        </div>
-    </div>
-);
-
 
 export default AdminPage;

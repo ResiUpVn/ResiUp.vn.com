@@ -167,7 +167,7 @@ const en = {
     title: 'Chat with Resi',
     subtitle: 'Your personal AI assistant for guidance and support.',
     error: 'Sorry, something went wrong. Please try again.',
-    apiKeyError: 'The AI service is not configured. The administrator needs to set the API key for the chatbot to work.',
+    apiKeyError: 'The AI service is not configured. An administrator needs to set the API key in the admin panel for the chatbot to work.',
     welcome: "Hello! I'm Resi, your friendly AI assistant. How are you feeling today? You can talk to me about anything on your mind.",
     placeholder: 'Type your message here...',
   },
@@ -239,6 +239,15 @@ const en = {
   admin: {
     title: 'Admin Panel',
     subtitle: 'Manage application settings and users.',
+    tabs: {
+        users: 'Users',
+        forum: 'Forum',
+        chatLogs: 'Chatbot Logs',
+        chatKnowledge: 'Chatbot Knowledge',
+        resources: 'Resources',
+        sounds: 'Nature Sounds',
+        apiKey: 'API Key',
+    },
     users: {
         deleteSelfError: 'You cannot delete your own admin account.',
         deleteConfirm: 'Are you sure you want to delete user {{email}}? This action cannot be undone.',
@@ -283,20 +292,21 @@ const en = {
         content: 'Document Content...',
         addButton: 'Add Document'
     },
-    tabs: {
-        users: 'Users',
-        forum: 'Forum',
-        chatLogs: 'Chatbot Logs',
-        chatKnowledge: 'Chatbot Knowledge',
-        resources: 'Resources',
-        sounds: 'Nature Sounds',
-    },
     chatLogs: {
         transcriptTitle: 'Chat Transcript',
         transcriptInfo: 'User: {{email}} | Session: {{date}}',
         close: 'Close',
         title: 'Chat Sessions ({{count}})',
         messages: '{{count}} messages'
+    },
+    apiKey: {
+        title: 'API Key Management',
+        subtitle: 'Set the global Gemini API key for the chatbot feature.',
+        label: 'Gemini API Key',
+        placeholder: 'Enter your API Key here',
+        saveButton: 'Save Key',
+        successMessage: 'API Key saved successfully.',
+        warning: 'Warning: This key will be stored in the browser\'s local storage and will be used by all users of this application.'
     }
   },
   post: {
@@ -476,7 +486,7 @@ const vi = {
     title: 'Trò chuyện với Resi',
     subtitle: 'Trợ lý AI cá nhân của bạn để được hướng dẫn và hỗ trợ.',
     error: 'Xin lỗi, đã xảy ra lỗi. Vui lòng thử lại.',
-    apiKeyError: 'Dịch vụ AI chưa được cấu hình. Quản trị viên cần cài đặt API key để chatbot có thể hoạt động.',
+    apiKeyError: 'Dịch vụ AI chưa được cấu hình. Quản trị viên cần phải thiết lập API key trong bảng quản trị để chatbot hoạt động.',
     welcome: "Xin chào! Tôi là Resi, trợ lý AI thân thiện của bạn. Hôm nay bạn cảm thấy thế nào? Bạn có thể nói chuyện với tôi về bất cứ điều gì trong tâm trí bạn.",
     placeholder: 'Nhập tin nhắn của bạn ở đây...',
   },
@@ -548,6 +558,15 @@ const vi = {
   admin: {
     title: 'Bảng quản trị',
     subtitle: 'Quản lý cài đặt ứng dụng và người dùng.',
+    tabs: {
+        users: 'Người dùng',
+        forum: 'Diễn đàn',
+        chatLogs: 'Nhật ký Chatbot',
+        chatKnowledge: 'Kiến thức Chatbot',
+        resources: 'Tài nguyên',
+        sounds: 'Âm thanh thiên nhiên',
+        apiKey: 'API Key',
+    },
     users: {
         deleteSelfError: 'Bạn không thể xóa tài khoản quản trị của chính mình.',
         deleteConfirm: 'Bạn có chắc muốn xóa người dùng {{email}} không? Hành động này không thể hoàn tác.',
@@ -592,20 +611,21 @@ const vi = {
         content: 'Nội dung tài liệu...',
         addButton: 'Thêm tài liệu'
     },
-    tabs: {
-        users: 'Người dùng',
-        forum: 'Diễn đàn',
-        chatLogs: 'Nhật ký Chatbot',
-        chatKnowledge: 'Kiến thức Chatbot',
-        resources: 'Tài nguyên',
-        sounds: 'Âm thanh thiên nhiên',
-    },
     chatLogs: {
         transcriptTitle: 'Bản ghi cuộc trò chuyện',
         transcriptInfo: 'Người dùng: {{email}} | Phiên: {{date}}',
         close: 'Đóng',
         title: 'Phiên trò chuyện ({{count}})',
         messages: '{{count}} tin nhắn'
+    },
+    apiKey: {
+        title: 'Quản lý API Key',
+        subtitle: 'Đặt API key Gemini chung cho tính năng chatbot.',
+        label: 'Khóa API Gemini',
+        placeholder: 'Nhập API Key của bạn tại đây',
+        saveButton: 'Lưu khóa',
+        successMessage: 'Đã lưu API Key thành công.',
+        warning: 'Cảnh báo: Khóa này sẽ được lưu trữ trong bộ nhớ cục bộ của trình duyệt và sẽ được sử dụng bởi tất cả người dùng của ứng dụng này.'
     }
   },
   post: {

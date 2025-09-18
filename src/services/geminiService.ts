@@ -7,11 +7,27 @@ let ai: GoogleGenAI | null = null;
 const initializeAi = () => {
     if (ai) return;
 
-    if (!process.env.API_KEY || process.env.API_KEY === 'undefined') {
+    // 1. Prioritize API key from localStorage (set by admin).
+    // 2. Fallback to environment variable (for Vercel/local dev).
+    const getApiKey = (): string | null => {
+        const storedKey = localStorage.getItem('geminiApiKey');
+        if (storedKey && storedKey !== 'undefined' && storedKey.trim() !== '') {
+            return storedKey;
+        }
+        const envKey = process.env.API_KEY;
+        if (envKey && envKey !== 'undefined' && envKey.trim() !== '') {
+            return envKey;
+        }
+        return null;
+    };
+    
+    const apiKey = getApiKey();
+
+    if (!apiKey) {
         // Throw a specific error that the UI can catch and interpret.
         throw new Error('API_KEY_MISSING');
     }
-    ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    ai = new GoogleGenAI({ apiKey });
 };
 
 const baseSystemInstruction = 'You are Resi, a supportive and friendly AI assistant for mental wellness. Keep your responses concise, empathetic, and encouraging. Focus on providing a safe and non-judgmental space for users to express themselves. Do not give medical advice.';

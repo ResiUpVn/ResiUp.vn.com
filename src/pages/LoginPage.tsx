@@ -1,10 +1,11 @@
-// FIX: Replaced placeholder content with the correct component implementation to resolve module loading errors.
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useTranslation } from '../context/LanguageContext';
 
 const LoginPage: React.FC = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,7 +14,6 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect to home if user is already authenticated
     if (user) {
       navigate('/', { replace: true });
     }
@@ -27,30 +27,29 @@ const LoginPage: React.FC = () => {
       await login(email, password);
       navigate('/');
     } catch (err: any) {
-      setError(err.message || 'Failed to log in');
+      setError(t('login.error'));
     } finally {
       setLoading(false);
     }
   };
 
-  // Render nothing while redirecting
   if (user) {
     return null;
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-center min-h-screen bg-transparent p-4">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-slate-200/80">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-teal-600">ResiUp</h1>
-          <h2 className="mt-2 text-xl font-bold text-gray-800">Welcome Back</h2>
-          <p className="mt-2 text-sm text-gray-600">Sign in to continue your journey</p>
+          <h1 className="text-3xl font-bold text-blue-600">ResiUp</h1>
+          <h2 className="mt-2 text-xl font-bold text-slate-800">{t('login.welcome')}</h2>
+          <p className="mt-2 text-sm text-slate-600">{t('login.subtitle')}</p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
           {error && <p className="p-3 text-sm text-red-700 bg-red-100 rounded-md">{error}</p>}
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700">
-              Email address
+            <label htmlFor="email" className="text-sm font-medium text-slate-700">
+              {t('login.emailLabel')}
             </label>
             <input
               id="email"
@@ -60,15 +59,15 @@ const LoginPage: React.FC = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+              className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div className="space-y-2">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-gray-700"
+              className="text-sm font-medium text-slate-700"
             >
-              Password
+              {t('login.passwordLabel')}
             </label>
             <input
               id="password"
@@ -78,23 +77,23 @@ const LoginPage: React.FC = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+              className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div>
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:bg-gray-400"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-slate-400"
             >
-              {loading ? <LoadingSpinner /> : 'Sign in'}
+              {loading ? <LoadingSpinner /> : t('login.signInButton')}
             </button>
           </div>
         </form>
-        <p className="text-sm text-center text-gray-600">
-          Don't have an account?{' '}
-          <Link to="/signup" className="font-medium text-teal-600 hover:text-teal-500">
-            Sign up
+        <p className="text-sm text-center text-slate-600">
+          {t('login.noAccount')}{' '}
+          <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+            {t('login.signUpLink')}
           </Link>
         </p>
       </div>

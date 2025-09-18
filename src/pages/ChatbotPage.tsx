@@ -46,15 +46,16 @@ const ChatbotPage: React.FC = () => {
         if (input.trim() === '' || isLoading) return;
 
         const userMessage: ChatMessage = { role: 'user', text: input };
-        setMessages(prev => [...prev, userMessage]);
+        const currentHistory = [...messages, userMessage];
+        setMessages(currentHistory);
         setInput('');
         setIsLoading(true);
 
         try {
             const stream = await sendMessageStream(input, messages);
+            let modelResponse = '';
             setMessages(prev => [...prev, { role: 'model', text: '' }]);
             
-            let modelResponse = '';
             for await (const chunk of stream) {
                 modelResponse += chunk.text;
                 setMessages(prev => {
@@ -69,10 +70,16 @@ const ChatbotPage: React.FC = () => {
             if (error?.message === 'API_KEY_MISSING') {
                 errorMessage = t('chatbot.apiKeyError');
             }
-            setMessages(prev => [
-                ...prev,
-                { role: 'model', text: errorMessage },
-            ]);
+            setMessages(prev => {
+                const newMessages = [...prev];
+                // If the last message is an empty model message, update it. Otherwise, add a new one.
+                if (newMessages.length > 0 && newMessages[newMessages.length - 1].role === 'model' && newMessages[newMessages.length - 1].text === '') {
+                    newMessages[newMessages.length - 1].text = errorMessage;
+                } else {
+                    newMessages.push({ role: 'model', text: errorMessage });
+                }
+                return newMessages;
+            });
         } finally {
             setIsLoading(false);
         }
@@ -111,7 +118,7 @@ const ChatbotPage: React.FC = () => {
                             )}
                         </div>
                     ))}
-                    {isLoading && messages[messages.length - 1].role !== 'model' && (
+                    {isLoading && messages[messages.length - 1]?.role !== 'model' && (
                          <div className="flex items-start gap-3">
                             <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
                                 <BotIcon className="w-5 h-5 text-blue-600"/>

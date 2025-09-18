@@ -1,5 +1,3 @@
-// FIX: Removed circular dependency import. The ChatMessage interface is defined within this file.
-
 export interface JournalEntry {
   id: string;
   date: string;
@@ -66,4 +64,13 @@ export interface KnowledgeDocument {
   id: string;
   title: string;
   content: string;
+}
+
+export interface TestResult {
+    date: string;
+    scores: {
+        depression: number;
+        anxiety: number;
+        stress: number;
+    };
 }

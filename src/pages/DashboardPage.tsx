@@ -1,18 +1,21 @@
-// FIX: Replaced placeholder content with the correct component implementation to resolve module loading errors.
 import React from 'react';
 import PageTitle from '../components/PageTitle';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import type { DailyChallenge, JournalEntry } from '../types';
+import type { DailyChallenge, JournalEntry, TestResult } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from '../context/LanguageContext';
 
 const DashboardPage: React.FC = () => {
     const { user } = useAuth();
+    const { t } = useTranslation();
     const [challenges] = useLocalStorage<DailyChallenge[]>(`dailyChallenges_${user?.email ?? 'guest'}`, []);
     const [journalEntries] = useLocalStorage<JournalEntry[]>(`journalEntries_${user?.email ?? 'guest'}`, []);
+    const [testResults] = useLocalStorage<TestResult[]>(`testResults_${user?.email ?? 'guest'}`, []);
 
     const completedChallenges = challenges.filter(c => c.completed).length;
     const totalChallenges = challenges.length;
+    const latestTestResult = testResults.length > 0 ? testResults[0] : null;
     
     // Process journal entries for chart
     const journalData = journalEntries
@@ -30,33 +33,58 @@ const DashboardPage: React.FC = () => {
         .reverse();
 
     const pieData = [
-        { name: 'Completed', value: completedChallenges },
-        { name: 'Missed', value: Math.max(0, totalChallenges - completedChallenges) },
+        { name: t('dashboard.completed'), value: completedChallenges },
+        { name: t('dashboard.missed'), value: Math.max(0, totalChallenges - completedChallenges) },
     ];
-    const COLORS = ['#14b8a6', '#f1f5f9'];
+    const COLORS = ['#2563eb', '#e2e8f0'];
+
+    const getSeverity = (scale: 'depression' | 'anxiety' | 'stress', score: number) => {
+        const severities = t(`tests.dass21.severity.${scale}`, { returnObjects: true }) as { level: string, range: [number, number], color: string }[];
+        const result = severities.find(s => score >= s.range[0] && score <= s.range[1]);
+        return result || { level: t('tests.dass21.severity.unknown'), color: 'bg-slate-400' };
+    };
 
     return (
         <div>
-            <PageTitle title="My Dashboard" subtitle="Track your progress and celebrate your growth." />
+            <PageTitle title={t('dashboard.title')} subtitle={t('dashboard.subtitle')} />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                    <h3 className="text-lg font-semibold text-gray-500">Completed Challenges</h3>
-                    <p className="text-5xl font-bold text-teal-600 mt-2">{completedChallenges}</p>
+                <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md text-center border border-slate-200/80">
+                    <h3 className="text-lg font-semibold text-slate-500">{t('dashboard.completedChallenges')}</h3>
+                    <p className="text-5xl font-bold text-blue-600 mt-2">{completedChallenges}</p>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                     <h3 className="text-lg font-semibold text-gray-500">Journal Entries</h3>
-                    <p className="text-5xl font-bold text-blue-600 mt-2">{journalEntries.length}</p>
+                <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md text-center border border-slate-200/80">
+                     <h3 className="text-lg font-semibold text-slate-500">{t('dashboard.journalEntries')}</h3>
+                    <p className="text-5xl font-bold text-indigo-600 mt-2">{journalEntries.length}</p>
                 </div>
-                 <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-                     <h3 className="text-lg font-semibold text-gray-500">Current Streak</h3>
-                    <p className="text-5xl font-bold text-amber-600 mt-2">0 <span className="text-2xl">days</span></p>
+                 <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md text-center border border-slate-200/80">
+                     <h3 className="text-lg font-semibold text-slate-500">{t('dashboard.currentStreak')}</h3>
+                    <p className="text-5xl font-bold text-amber-600 mt-2">0 <span className="text-2xl">{t('dashboard.days')}</span></p>
                 </div>
             </div>
+            
+            {latestTestResult && (
+                <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md border border-slate-200/80 mb-8">
+                    <h3 className="text-lg font-semibold text-slate-700 mb-4">{t('dashboard.latestTestResult')} ({new Date(latestTestResult.date).toLocaleDateString()})</h3>
+                    <div className="grid md:grid-cols-3 gap-4 text-center">
+                        {(Object.keys(latestTestResult.scores) as Array<keyof typeof latestTestResult.scores>).map(key => {
+                            const score = latestTestResult.scores[key];
+                            const { level, color } = getSeverity(key, score);
+                            return (
+                                <div key={key} className="p-4 bg-slate-50 rounded-lg">
+                                    <h4 className="font-semibold text-slate-600 capitalize">{t(`tests.results.${key}`)}</h4>
+                                    <p className="text-3xl font-bold text-slate-800 my-1">{score}</p>
+                                    <span className={`px-2 py-0.5 text-xs font-semibold text-white rounded-full ${color}`}>{level}</span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                <div className="lg:col-span-3 bg-white p-6 rounded-lg shadow-sm">
-                    <h3 className="text-lg font-semibold text-gray-700 mb-4">Journal Entries (Last 7 Days)</h3>
+                <div className="lg:col-span-3 bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md border border-slate-200/80">
+                    <h3 className="text-lg font-semibold text-slate-700 mb-4">{t('dashboard.journalChartTitle')}</h3>
                     <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={journalData}>
                             <CartesianGrid strokeDasharray="3 3" />
@@ -64,13 +92,13 @@ const DashboardPage: React.FC = () => {
                             <YAxis allowDecimals={false} />
                             <Tooltip />
                             <Legend />
-                            <Bar dataKey="count" fill="#3b82f6" name="Entries" />
+                            <Bar dataKey="count" fill="#4f46e5" name={t('dashboard.entries')} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
 
-                <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm flex flex-col items-center">
-                    <h3 className="text-lg font-semibold text-gray-700 mb-4">Challenge Completion</h3>
+                <div className="lg:col-span-2 bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md flex flex-col items-center border border-slate-200/80">
+                    <h3 className="text-lg font-semibold text-slate-700 mb-4">{t('dashboard.challengeChartTitle')}</h3>
                     <ResponsiveContainer width="100%" height={300}>
                         <PieChart>
                             <Pie
@@ -78,10 +106,9 @@ const DashboardPage: React.FC = () => {
                                 cx="50%"
                                 cy="50%"
                                 labelLine={false}
-                                outerRadius={80}
+                                outerRadius={100}
                                 fill="#8884d8"
                                 dataKey="value"
-                                // FIX: The `percent` property from recharts can be undefined or non-numeric. It is explicitly converted to a number to prevent type errors during multiplication.
                                 label={({ name, percent }) => `${name} ${(Number(percent || 0) * 100).toFixed(0)}%`}
                             >
                                 {pieData.map((entry, index) => (

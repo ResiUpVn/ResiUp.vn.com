@@ -24,7 +24,6 @@ function mapHistoryToGenAI(history: ChatMessage[]): Content[] {
 }
 
 export const sendMessageStream = async (message: string, history: ChatMessage[]) => {
-    // This will throw a specific error if the key is missing, which can be caught by the caller.
     initializeAi();
     
     // Load knowledge base from local storage to provide context to the model.
@@ -35,7 +34,6 @@ export const sendMessageStream = async (message: string, history: ChatMessage[])
         const context = knowledgeDocs.map(doc => `--- Document: ${doc.title} ---\n${doc.content}`).join('\n\n');
         contextualSystemInstruction += `\n\nUse the following documents to help answer the user's questions if relevant. Do not mention that you are using these documents. Just use the information naturally in your response.\n\n${context}`;
     }
-
 
     if (!chat || history.length === 0) {
         // Use non-null assertion because initializeAi() would have thrown an error if ai was null.

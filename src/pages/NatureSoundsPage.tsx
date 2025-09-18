@@ -1,8 +1,8 @@
-// FIX: Replaced placeholder content with the correct component implementation to resolve module loading errors.
 import React, { useState, useEffect } from 'react';
 import PageTitle from '../components/PageTitle';
 import useLocalStorage from '../hooks/useLocalStorage';
 import type { NatureSound } from '../types';
+import { useTranslation } from '../context/LanguageContext';
 
 const defaultSounds: NatureSound[] = [
     { id: '1', name: 'ASMR Ambience | Mưa rơi trên cánh đồng trà xanh Jeju', videoId: '2hFvRr3nLSI' },
@@ -14,6 +14,7 @@ const defaultSounds: NatureSound[] = [
 ];
 
 const NatureSoundsPage: React.FC = () => {
+    const { t } = useTranslation();
     const [sounds] = useLocalStorage<NatureSound[]>('natureSounds', defaultSounds);
     const [selectedVideo, setSelectedVideo] = useState<NatureSound | null>(null);
 
@@ -26,10 +27,10 @@ const NatureSoundsPage: React.FC = () => {
     if (sounds.length === 0) {
         return (
              <div>
-                <PageTitle title="Nature Sounds" subtitle="Choose a video to relax, focus, or meditate." />
-                <div className="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <h3 className="text-2xl font-semibold text-gray-700">No Sounds Available</h3>
-                    <p className="mt-2 text-gray-500">The admin has not added any nature sounds yet. Please check back later.</p>
+                <PageTitle title={t('sounds.title')} subtitle={t('sounds.subtitle')} />
+                <div className="bg-white/70 backdrop-blur-sm p-8 rounded-xl shadow-md text-center border border-slate-200/80">
+                    <h3 className="text-2xl font-semibold text-slate-700">{t('sounds.noSoundsTitle')}</h3>
+                    <p className="mt-2 text-slate-500">{t('sounds.noSoundsDesc')}</p>
                 </div>
             </div>
         )
@@ -37,7 +38,7 @@ const NatureSoundsPage: React.FC = () => {
 
     return (
         <div>
-            <PageTitle title="Nature Sounds" subtitle="Choose a video to relax, focus, or meditate." />
+            <PageTitle title={t('sounds.title')} subtitle={t('sounds.subtitle')} />
             
             {selectedVideo && (
                 <div className="mb-8">
@@ -51,29 +52,29 @@ const NatureSoundsPage: React.FC = () => {
                             className="w-full h-full"
                         ></iframe>
                     </div>
-                    <h3 className="text-xl font-bold mt-4 text-gray-800">{selectedVideo.name}</h3>
+                    <h3 className="text-xl font-bold mt-4 text-slate-800">{selectedVideo.name}</h3>
                 </div>
             )}
 
-            <h4 className="text-lg font-semibold text-gray-700 mb-4">Choose another sound</h4>
+            <h4 className="text-lg font-semibold text-slate-700 mb-4">{t('sounds.chooseSound')}</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sounds.map((sound) => (
                     <div
                         key={sound.videoId}
                         onClick={() => setSelectedVideo(sound)}
-                        className="cursor-pointer group relative rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+                        className="cursor-pointer group relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                     >
                         <img 
                             src={`https://img.youtube.com/vi/${sound.videoId}/mqdefault.jpg`} 
                             alt={sound.name} 
                             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
                         />
-                        <div className={`absolute inset-0 flex items-center justify-center p-4 text-center transition-colors ${selectedVideo?.videoId === sound.videoId ? 'bg-black/50' : 'bg-black/30 group-hover:bg-black/50'}`}>
+                        <div className={`absolute inset-0 flex items-center justify-center p-4 text-center transition-colors ${selectedVideo?.videoId === sound.videoId ? 'bg-black/60' : 'bg-black/40 group-hover:bg-black/60'}`}>
                             <h3 className="text-white text-lg font-semibold">{sound.name}</h3>
                         </div>
                          {selectedVideo?.videoId === sound.videoId && (
-                            <div className="absolute top-3 right-3 bg-teal-500 text-white px-2 py-1 text-xs rounded-full">
-                                Playing
+                            <div className="absolute top-3 right-3 bg-blue-600 text-white px-2 py-1 text-xs rounded-full">
+                                {t('sounds.playing')}
                             </div>
                         )}
                     </div>

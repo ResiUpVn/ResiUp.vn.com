@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 
 // FIX: Correctly type the setter function to accept a value or a function, mirroring React.useState.
 function useLocalStorage<T,>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
@@ -21,17 +21,6 @@ function useLocalStorage<T,>(key: string, initialValue: T): [T, Dispatch<SetStat
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      if (item) {
-        setStoredValue(JSON.parse(item));
-      }
-    } catch (error) {
-        console.error(error);
-    }
-  }, [key]);
 
   return [storedValue, setValue];
 }

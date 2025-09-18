@@ -1,4 +1,3 @@
-// FIX: Replaced placeholder content with the correct component implementation to resolve module loading errors.
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PageTitle from '../components/PageTitle';
 import { sendMessageStream } from '../services/geminiService';
@@ -7,9 +6,11 @@ import type { ChatMessage, ChatSession } from '../types';
 import LoadingSpinner from '../components/LoadingSpinner';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from '../context/LanguageContext';
 
 const ChatbotPage: React.FC = () => {
     const { user } = useAuth();
+    const { t } = useTranslation();
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -17,17 +18,14 @@ const ChatbotPage: React.FC = () => {
     const [, setChatSessions] = useLocalStorage<ChatSession[]>('chatSessions', []);
 
     useEffect(() => {
-        // This effect runs when the component is unmounted.
-        // It saves the chat history if it's not empty.
         return () => {
-            if (messages.length > 1 && user) { // Only save non-trivial conversations
+            if (messages.length > 1 && user) {
                 const newSession: ChatSession = {
                     sessionId: new Date().toISOString(),
                     userEmail: user.email,
                     userId: user.id,
                     messages: messages,
                 };
-                // We read the latest sessions from storage, add the new one, and write back.
                 const allSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
                 allSessions.push(newSession);
                 localStorage.setItem('chatSessions', JSON.stringify(allSessions));
@@ -54,9 +52,9 @@ const ChatbotPage: React.FC = () => {
 
         try {
             const stream = await sendMessageStream(input, messages);
-            let modelResponse = '';
             setMessages(prev => [...prev, { role: 'model', text: '' }]);
             
+            let modelResponse = '';
             for await (const chunk of stream) {
                 modelResponse += chunk.text;
                 setMessages(prev => {
@@ -65,46 +63,60 @@ const ChatbotPage: React.FC = () => {
                     return newMessages;
                 });
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error sending message:', error);
+            let errorMessage = t('chatbot.error');
+            if (error?.message === 'API_KEY_MISSING') {
+                errorMessage = t('chatbot.apiKeyError');
+            }
             setMessages(prev => [
                 ...prev,
-                { role: 'model', text: 'Sorry, something went wrong. Please try again.' },
+                { role: 'model', text: errorMessage },
             ]);
         } finally {
             setIsLoading(false);
         }
-    }, [input, isLoading, messages]);
+    }, [input, isLoading, messages, t]);
 
     return (
         <div className="flex flex-col h-full">
-            <PageTitle title="Chat with Resi" subtitle="Your personal AI assistant for guidance and support." />
+            <PageTitle title={t('chatbot.title')} subtitle={t('chatbot.subtitle')} />
             
-            <div className="flex-1 bg-white rounded-lg shadow-sm p-4 flex flex-col overflow-hidden">
+            <div className="flex-1 bg-white/70 backdrop-blur-sm rounded-xl shadow-md border border-slate-200/80 p-4 flex flex-col overflow-hidden">
                 <div className="flex-1 overflow-y-auto pr-2 space-y-4">
+                    {messages.length === 0 && (
+                        <div className="flex items-start gap-3">
+                             <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                <BotIcon className="w-5 h-5 text-blue-600"/>
+                            </div>
+                            <div className="max-w-md p-3 rounded-lg bg-slate-200 text-slate-800">
+                                <p>{t('chatbot.welcome')}</p>
+                            </div>
+                        </div>
+                    )}
                     {messages.map((msg, index) => (
                         <div key={index} className={`flex items-start gap-3 ${msg.role === 'user' ? 'justify-end' : ''}`}>
                             {msg.role === 'model' && (
-                                <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
-                                    <BotIcon className="w-5 h-5 text-teal-600"/>
+                                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                    <BotIcon className="w-5 h-5 text-blue-600"/>
                                 </div>
                             )}
-                            <div className={`max-w-md p-3 rounded-lg ${msg.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
+                            <div className={`max-w-lg p-3 rounded-lg shadow-sm ${msg.role === 'user' ? 'bg-blue-500 text-white' : 'bg-slate-200 text-slate-800'}`}>
                                 <p className="whitespace-pre-wrap">{msg.text}</p>
                             </div>
                             {msg.role === 'user' && (
-                                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                                    <UserIcon className="w-5 h-5 text-gray-600"/>
+                                <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0">
+                                    <UserIcon className="w-5 h-5 text-slate-600"/>
                                 </div>
                             )}
                         </div>
                     ))}
-                    {isLoading && messages.length > 0 && messages[messages.length - 1].role === 'user' && (
+                    {isLoading && messages[messages.length - 1].role !== 'model' && (
                          <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
-                                <BotIcon className="w-5 h-5 text-teal-600"/>
+                            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                <BotIcon className="w-5 h-5 text-blue-600"/>
                             </div>
-                             <div className="max-w-md p-3 rounded-lg bg-gray-200 text-gray-800">
+                             <div className="max-w-md p-3 rounded-lg bg-slate-200 text-slate-800">
                                  <LoadingSpinner />
                              </div>
                          </div>
@@ -112,18 +124,18 @@ const ChatbotPage: React.FC = () => {
                     <div ref={messagesEndRef} />
                 </div>
                 
-                <div className="mt-4 border-t pt-4">
+                <div className="mt-4 border-t pt-4 border-slate-200/80">
                     <div className="relative">
                         <input
                             type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                            placeholder="Type your message here..."
-                            className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition"
+                            placeholder={t('chatbot.placeholder')}
+                            className="w-full pl-4 pr-12 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                             disabled={isLoading}
                         />
-                        <button onClick={handleSend} disabled={isLoading} className="absolute inset-y-0 right-0 flex items-center justify-center w-12 text-gray-500 hover:text-teal-600 disabled:text-gray-300 transition-colors">
+                        <button onClick={handleSend} disabled={isLoading || !input.trim()} className="absolute inset-y-0 right-0 flex items-center justify-center w-12 text-slate-500 hover:text-blue-600 disabled:text-slate-300 transition-colors">
                             <SendIcon className="w-6 h-6"/>
                         </button>
                     </div>

@@ -2,9 +2,17 @@ import { GoogleGenAI, Chat, Content } from "@google/genai";
 import type { ChatMessage, KnowledgeDocument } from '../types';
 
 let chat: Chat | null = null;
+let ai: GoogleGenAI | null = null;
 
-// FIX: Initialize GoogleGenAI with a named apiKey parameter from process.env.API_KEY.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const initializeAi = () => {
+    if (ai) return;
+
+    if (!process.env.API_KEY || process.env.API_KEY === 'undefined') {
+        // Throw a specific error that the UI can catch and interpret.
+        throw new Error('API_KEY_MISSING');
+    }
+    ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+};
 
 const baseSystemInstruction = 'You are Resi, a supportive and friendly AI assistant for mental wellness. Keep your responses concise, empathetic, and encouraging. Focus on providing a safe and non-judgmental space for users to express themselves. Do not give medical advice.';
 
@@ -16,8 +24,8 @@ function mapHistoryToGenAI(history: ChatMessage[]): Content[] {
 }
 
 export const sendMessageStream = async (message: string, history: ChatMessage[]) => {
-    // FIX: Re-initialize chat when it's not created or when a new conversation starts (history is empty).
-    // This prevents state from a previous chat session from persisting across page navigations.
+    // This will throw a specific error if the key is missing, which can be caught by the caller.
+    initializeAi();
     
     // Load knowledge base from local storage to provide context to the model.
     const knowledgeDocs: KnowledgeDocument[] = JSON.parse(localStorage.getItem('chatbotKnowledge') || '[]');
@@ -30,8 +38,8 @@ export const sendMessageStream = async (message: string, history: ChatMessage[])
 
 
     if (!chat || history.length === 0) {
-        // FIX: Use 'gemini-2.5-flash' model for chat.
-        chat = ai.chats.create({
+        // Use non-null assertion because initializeAi() would have thrown an error if ai was null.
+        chat = ai!.chats.create({
             model: 'gemini-2.5-flash',
             history: mapHistoryToGenAI(history),
             config: {
@@ -40,6 +48,5 @@ export const sendMessageStream = async (message: string, history: ChatMessage[])
         });
     }
 
-    // FIX: The sendMessageStream method returns a promise that resolves to an async iterable object.
     return chat.sendMessageStream({ message });
 };

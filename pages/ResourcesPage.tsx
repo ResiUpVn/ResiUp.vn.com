@@ -42,12 +42,7 @@ const defaultVideos: ResourceVideo[] = [
         title: '#26 – Mới lên ĐẠI HỌC',
         description: 'Lời khuyên cho sinh viên mới vào đại học, kinh nghiệm thực tế từ Tim Vũ.',
     },
-    {
-        id: "iLANPST33Kc",
-        videoId: "iLANPST33Kc",
-        title: 'Cà phê cùng Tim Vũ ☕︎ (1/2)',
-        description: 'Buổi trò chuyện thân mật cùng Tim Vũ về học tập, cuộc sống.',
-    },
+    // Đã xóa clip "Cà phê cùng Tim Vũ"
 ];
 
 const ResourcesPage: React.FC = () => {
@@ -71,6 +66,52 @@ const ResourcesPage: React.FC = () => {
                     ))}
                 </ul>
                 <p className="mt-2 text-sm text-slate-500">Bạn muốn nhận <b>toàn bộ danh sách video</b> của Tim Vũ? Hãy nhắn cho chúng tôi!</p>
+            </div>
+
+            {/* Bổ sung danh sách clip phát triển bản thân */}
+            <div className="mb-8 bg-white/70 backdrop-blur-sm p-6 rounded-xl shadow-md border border-slate-200/80">
+                <h2 className="text-xl font-bold mb-2">Dưới đây là một số clip hay về <strong>phát triển bản thân / tự hoàn thiện</strong> (tiếng Anh &amp; tiếng Việt) bạn có thể tham khảo:</h2>
+                <h3 className="text-lg font-semibold mb-3 mt-2">🎯 Một số video gợi ý:</h3>
+                <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=L5Nb1MTHxUI" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">
+                            10 Habits for Self Improvement (Life Changing &amp; Motivating)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=SmEyOALeEIg" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">
+                            5 HABITS for Amazing Personal Growth! (1-hr Motivational class)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://m.youtube.com/watch?v=AWGayyX9I6o" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">
+                            The 7 Essential Pillars of Personal Development | Brian Tracy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=eaQyCMZTZX4" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">
+                            I AM WHAT I CHOOSE TO BECOME – Jim Rohn Motivation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=SJTC9cV9260" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">
+                            What Fuels Self Improvement And Personal Development | Best Motivational Speech
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=53eMp3PKZ4g" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">
+                            Time To Let Go Of Your Thoughts | Nhat Nam Le
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=OWYU-zNKdh0" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">
+                            10 years of self-improvement knowledge in 14 minutes 52 seconds
+                        </a>
+                    </li>
+                </ul>
+                <p className="mt-4 text-sm text-slate-500">
+                    Nếu bạn muốn, tôi có thể tìm và gửi <strong>clip phát triển bản thân</strong> có phụ đề tiếng Việt hoặc do người Việt làm, phù hợp với bạn hơn — bạn muốn hướng đó không?
+                </p>
             </div>
 
             {renderedVideos.length > 0 ? (
